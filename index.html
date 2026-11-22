@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBrowse</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #090d18;
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    background: #101727;
+    border-bottom: 1px solid #202b40;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    color: #60a5fa;
+}
+
+.status {
+    color: #8b9bb5;
+    font-size: 12px;
+}
+
+.container {
+    max-width: 950px;
+    margin: 100px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #8b9bb5;
+    margin-bottom: 40px;
+}
+
+.search-box {
+    display: flex;
+    background: #151f32;
+    border: 1px solid #30415d;
+    border-radius: 15px;
+    padding: 8px;
+    max-width: 720px;
+    margin: auto;
+    transition: 0.2s;
+}
+
+.search-box:focus-within {
+    border-color: #60a5fa;
+    box-shadow: 0 0 20px #2563eb22;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 15px;
+    color: white;
+    font-size: 16px;
+}
+
+.search-box button {
+    background: #3b82f6;
+    border: none;
+    color: white;
+    padding: 0 23px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.search-box button:hover {
+    background: #2563eb;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 25px 0 55px;
+}
+
+.controls button {
+    background: #151f32;
+    color: #cbd5e1;
+    border: 1px solid #30415d;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background: #263750;
+}
+
+.section-title {
+    text-align: left;
+    margin-bottom: 20px;
+    color: #cbd5e1;
+    font-size: 17px;
+}
+
+.shortcuts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.shortcut {
+    background: #121c2e;
+    border: 1px solid #253650;
+    border-radius: 15px;
+    padding: 25px 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.shortcut:hover {
+    transform: translateY(-5px);
+    border-color: #60a5fa;
+    background: #192943;
+}
+
+.shortcut .icon {
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.shortcut p {
+    color: #dbeafe;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 75px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+@media(max-width: 600px) {
+    .container {
+        margin-top: 65px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    .shortcuts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header {
+        padding: 0 5%;
+    }
+
+    .search-box input {
+        font-size: 14px;
+    }
+
+    .controls {
+        gap: 7px;
+    }
+
+    .controls button {
+        padding: 11px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">⚡ QuickBrowse</div>
+    <div class="status">Your browsing dashboard</div>
+</header>
+
+<main class="container">
+
+    <h1>QuickBrowse.</h1>
+    <p class="subtitle">
+        A simple place to start browsing.
+    </p>
+
+    <form class="search-box" id="searchForm">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search Google or enter a website..."
+            autocomplete="off"
+            required
+        >
+        <button type="submit">Search ↗</button>
+    </form>
+
+    <div class="controls">
+        <button onclick="history.back()">← Back</button>
+        <button onclick="location.reload()">↻ Reload</button>
+        <button onclick="location.href = '/'">⌂ Home</button>
+    </div>
+
+    <h2 class="section-title">Quick shortcuts</h2>
+
+    <div class="shortcuts">
+
+        <div class="shortcut"
+             onclick="openSite('https://www.google.com')">
+            <div class="icon">🔍</div>
+            <p>Google</p>
+        </div>
+
+        <div class="shortcut"
+             onclick="openSite('https://www.youtube.com')">
+            <div class="icon">▶️</div>
+            <p>YouTube</p>
+        </div>
+
+        <div class="shortcut"
+             onclick="openSite('https://www.nike.com')">
+            <div class="icon">✔️</div>
+            <p>Nike</p>
+        </div>
+
+        <div class="shortcut"
+             onclick="openSite('https://www.wikipedia.org')">
+            <div class="icon">🌐</div>
+            <p>Wikipedia</p>
+        </div>
+
+    </div>
+
+    <footer>
+        QuickBrowse · Simple. Fast. Modern.
+    </footer>
+
+</main>
+
+<script>
+
+const searchForm = document.getElementById("searchForm");
+const searchInput = document.getElementById("searchInput");
+
+function openSite(url) {
+    window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function getDestination(value) {
+
+    value = value.trim();
+
+    if (!value) return null;
+
+    // Detect a website address
+    const looksLikeUrl =
+        /^(https?:\/\/)/i.test(value) ||
+        /^[a-z0-9-]+\.[a-z]{2,}([/:?#].*)?$/i.test(value);
+
+    if (looksLikeUrl) {
+
+        if (!/^https?:\/\//i.test(value)) {
+            value = "https://" + value;
+        }
+
+        try {
+            const parsed = new URL(value);
+
+            if (parsed.protocol === "http:" ||
+                parsed.protocol === "https:") {
+                return parsed.href;
+            }
+        } catch (error) {
+            return null;
+        }
+    }
+
+    // Otherwise search Google
+    return "https://www.google.com/search?q=" +
+        encodeURIComponent(value);
+}
+
+searchForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const destination = getDestination(searchInput.value);
+
+    if (destination) {
+        openSite(destination);
+    }
+
+});
+
+</script>
+
+</body>
+</html>
